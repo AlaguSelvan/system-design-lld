@@ -1,65 +1,77 @@
 const express = require('express');
-import ParkingLot from './Models/ParkingLot'
+const BodyParser = require('body-parser');
+const ParkingLot = require('./Models/ParkingLot');
 
 const app = express();
-app.use(json());
+
+app.use(BodyParser.json());
 
 const parkingLot = new ParkingLot()
 
 app.post('/createParkingLot', (req, res) => {
 	const {size} = req.body
 	let ans = parkingLot.createParkingLot(size);
-	return res.send(ans)
+	res.send({success: true, message: ans})
 })
 
 app.post('/park', (req, res) => {
 	const {registerNumber, color} = req.body
 	let ans = parkingLot.parkCar(registerNumber, color)
-	return res.send(ans)
+	res.send({success: true, message: ans})
+})
+
+app.post('/leaveCar', (req, res) => {
+	const {slotId} = req.body
+	let result =  parkingLot.leaveCar(slotId)
+	res.send({success: true, result})
 })
 
 app.post('/leaveCarByRegisterNumber', (req, res) => {
 	const {registerNumber} = req.body
-	let ans =  parkingLot.leaveCarByRegisterNumber(registerNumber)
-	return res.send(ans)
+	let result =  parkingLot.leaveCarByRegisterNumber(registerNumber)
+	res.send({success: true, result})
 })
 
 
 app.get('/findAllSlots', (req, res) => {
-	const {registerNumber} = req.body
-	let ans =  parkingLot.findAllSlots()
-	return res.send(ans)
+	let result =  parkingLot.findAllSlots()
+	res.send({success: true, result})
 })
 
 app.get('/getSlotByRegisterNumber', (req, res) => {
 	let {registerNumber} = req.query;
-	let ans = parkingLot.getSlotByRegisterNumber(registerNumber)
-	return ans;
+	let result = parkingLot.getSlotByRegisterNumber(registerNumber)
+	res.send({success: true, result})
 })
 
 app.get('/car', (req, res) => {
 	const {color} = req.query
-	let ans =  parkingLot.findCarByColor(color)
-	return res.send(ans)
+	let result =  parkingLot.findCarByColor(color)
+	res.send({success: true, result})
 })
 
 app.get('/findAlocatedSlots', (req, res) => {
-	let ans =  parkingLot.findAlocatedSlots()
-	return res.send(ans)
+	let result =  parkingLot.findAlocatedSlots()
+	res.send({success: true, result})
 })
 
 app.get('/findAllAvailableSlots', (req, res) => {
-	let ans =  parkingLot.findAllAvailableSlots()
-	return res.send(ans)
+	let result =  parkingLot.findAllAvailableSlots()
+	res.send({success: true, result})
 })
 
 app.get('/findSlotByColor', (req, res) => {
 	const {color} = req.query
 	if(!color) throw new Error("color is required")
-	let ans =  parkingLot.findSlotByColor(color)
-	return res.send(ans)
+	let result =  parkingLot.findSlotByColor(color)
+	res.send({success: true, result})
 })
 
-app.listen(3000, () => {
-	console.log('Listening on port 3000!!!!!!!!');
+app.get('/getParkingStatus', (req, res) => {
+	let result =  parkingLot.getParkingStatus()
+	res.send({success: true, result})
+})
+
+app.listen(4000, () => {
+	console.log('Listening on port 4000!!!!!!!!');
 });

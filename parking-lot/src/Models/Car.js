@@ -22,5 +22,4 @@ class Car {
 		return ((carA.registerNumber.toLowerCase() === carB.registerNumber.toLowerCase()) && carA.color.toLowerCase() === carB.color.toLowerCase())
 	}
 }
-
 module.exports = Car;

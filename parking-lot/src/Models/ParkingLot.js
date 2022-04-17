@@ -5,7 +5,6 @@ const Car = require('./Car');
  * 
  */
 
-
 class ParkingLot {
 
 	constructor() {
@@ -48,26 +47,27 @@ class ParkingLot {
 	 */
 	leaveCar(index) {
 		if(index < 0 || index > this.maxParkingSlots) throw new Error("Slot not found");
-		if(this.slots[index]) throw new Error("Slot is already free");
+		if(!this.slots[index]) throw new Error("Slot is already free");
 		this.slots[index] = null;
 		return index;
 	}
 
 	/**
 	 * 
-	 * @param {Number} registerNumber 
+	 * @param {string} registerNumber 
 	 * @description Leave car by registerNumber
-	 * @returns {Number} id of slot
+	 * @returns {Number} registerNumber of car
 	 */
 	leaveCarByRegisterNumber(registerNumber) {
 		if(this.maxParkingSlots < 0) throw new Error("Parking lot is empty");
-		for(let i = 0; i < this.slots; i++) {
-			if(this.slots[i].registerNumber === registerNumber) {
-				this.slots[i] = null;
-				return i;
+		for(let id in this.slots) {
+			let slot = this.slots[id]
+			if(slot?.registerNumber === registerNumber) {
+				this.slots[id] = null;
+				return registerNumber;
 			}
 		}
-		
+		throw new Error("Car not found");
 	}
 
 	/**
@@ -172,8 +172,12 @@ class ParkingLot {
 	}
 
 	isParkingLotFull() {
-		return this.slots.indexOf(null) > -1
+		let isFull = true;
+		for(let slot of this.slots) {
+			if(slot === null) isFull = false
+		}
+		return isFull
 	}
 }
 
-export default ParkingLot
+module.exports = ParkingLot;
