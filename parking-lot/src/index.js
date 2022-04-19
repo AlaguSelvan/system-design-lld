@@ -75,3 +75,5 @@ app.get('/getParkingStatus', (req, res) => {
 app.listen(4000, () => {
 	console.log('Listening on port 4000!!!!!!!!');
 });
+
+module.exports = app;

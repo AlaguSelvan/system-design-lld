@@ -4,24 +4,24 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js",
-		"test": "jest --watchAll --no-cache",
-		"test-cov": "jest --coverage",
-		"test:ci": "jest"
+    "test": "jest --watchAll --no-cache",
+    "test-cov": "jest --coverage",
+    "test:ci": "jest"
   },
-	"jest": {
-		"verbose": true
-	},
+  "jest": {
+    "verbose": true
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",
     "express": "^4.17.3",
-    "jest": "^27.5.1",
-    "supertest": "^6.2.2"
+    "jest": "^27.5.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
   },
   "description": ""
 }
