@@ -1,5 +1,3 @@
-import NotFoundException from "./exceptions/NotFoundException";
-import StorageFullException from "./exceptions/StorageFullException";
 import { LRUEvictionPolicy } from "./policies/LRUEvictionPolicy";
 import {HashMapStorage} from "./Storage/HashMapStorage";
 
@@ -17,12 +15,13 @@ export default class Cache<Key, Value> {
 		try {
 			this.storage.add(key, value);
 			this.evictionPolicy.keyAccessed(key);
-		} catch (e: Error) {
+		} catch (e) {
 			const evictedKey = this.evictionPolicy.evictKey();
 			if (evictedKey === null) {
 				throw new Error('Storage is full');
 			}
 			this.storage.remove(evictedKey);
+			this.put(key, value);
 		}
 	}
 
@@ -31,7 +30,7 @@ export default class Cache<Key, Value> {
 			const Value = this.storage.get(key);
 			this.evictionPolicy.keyAccessed(key);
 			return Value;
-		} catch(e: NotFoundException) {
+		} catch(e) {
 			return null;
 		}
 	}
