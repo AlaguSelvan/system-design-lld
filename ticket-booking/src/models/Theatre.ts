@@ -10,3 +10,5 @@ class Theatre {
 		this.screens.push(screen);
 	}
 }
+
+export default Theatre;

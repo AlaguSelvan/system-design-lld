@@ -1,7 +1,7 @@
 enum BookingStatus {
-	"Created",
-	"Confirmed",
-	"expired",
+	"CREATED",
+	"CONFIRMED",
+	"EXPIRED",
 }
 
 export default BookingStatus;

@@ -1,4 +1,5 @@
 import Seat from "./Seat";
+import Theatre from "./Theatre";
 
 class TheatreScreen {
 

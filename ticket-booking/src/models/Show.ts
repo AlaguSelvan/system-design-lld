@@ -1,3 +1,4 @@
+import Movie from "./Movie";
 import TheatreScreen from "./Screen";
 
 class Show {
